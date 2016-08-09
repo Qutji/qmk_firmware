@@ -5,13 +5,13 @@
 #include "debug.h"
 #include "action_layer.h"
 
-#define OSX     0  // default layer (for OSX)
-#define WINDOWS 1  // default layer (for Windows)
+#define OSX     1  // default layer (for OSX)
+#define WINDOWS 0  // default layer (for Windows)
 #define FN      2  // functions
 #define MOUSE   3  // mouse mode
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: OS X layer
+/* Keymap 1: OS X layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |   =    |   1  |   2  |   3  |   4  |   5  | ⌘ + →|           | `~   |   6  |   7  |   8  |   9  |   0  |   -    |
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_PGDN,KC_ENT, KC_SPC
     ),
 
-/* Keymap 1: Windows layer
+/* Keymap 0: Windows layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  Esc   |   1  |   2  |   3  |   4  |   5  | A + →|           |   ^  |   6  |   7  |   8  |   9  |   0  |   -    |
