@@ -66,14 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LFn  |           | LGui |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   ↑  |   \_   |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt | LFn  | LGui | Left | Right|                                       |  /   | RShift |  ←  |  ↓  |  →  |
+ *   | LAlt | LGui | Left | Right| LFn  |                                      |  /   | RShift |  ←  |  ↓  |  →  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | かな | cut |       | Alt  | かな  |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | paste |       | PgUp |        |      |
+ *                                 |      |      | copy |       | PgUp |        |      |
  *                                 |Backsp|Delete|------|       |------| Enter  |Space |
- *                                 |ace   |      | copy  |       | PgDn |        |      |
+ *                                 |ace   |      | paste  |       | PgDn |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TO(FN,1),
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
-        KC_LALT,      MO(FN),   KC_LGUI,   KC_LEFT,  KC_RGHT,
+        KC_LALT,     KC_LGUI,      KC_LEFT,KC_RGHT,   MO(FN),
                                                KC_GRV,       LCTL(KC_X),
                                                               LCTL(KC_C),
                                                KC_BSPC,KC_DELT,LCTL(KC_V),
