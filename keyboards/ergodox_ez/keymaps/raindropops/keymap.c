@@ -71,9 +71,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,-------------.
  *                                        | かな | cut  |       | Alt  | かな  |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | copy |       | PgUp |        |      |
+ *                                 |      |      | copy |       | Home |        |      |
  *                                 |Backsp|Delete|------|       |------| Enter  |Space |
- *                                 |ace   |      | paste|       | PgDn |        |      |
+ *                                 |ace   |      | paste|       | End  |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -95,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_LGUI,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_UP,          KC_RO,
                                   KC_SLSH,  KC_RSFT,KC_LEFT,KC_DOWN,          KC_RGHT,
              KC_LALT,        KC_GRV,
-             KC_PGUP,
-             KC_PGDN,KC_ENT, KC_SPC
+             KC_HOME,
+             KC_END, KC_ENT, KC_SPC
     ),
 
 /* Keymap 2: Function Layer
