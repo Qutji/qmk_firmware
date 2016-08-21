@@ -6,7 +6,7 @@
 #include "action_layer.h"
 
 #define WINDOWS 0  // default layer (for Windows)
-#define FN      2  // functions
+#define FN      1  // functions
 #define MOUSE   3  // mouse mode
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
