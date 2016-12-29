@@ -12,13 +12,13 @@
 #define MACOS     4  // MACOS
 
 // Aliases
-#define JA_CLON KC_QUOT  // : and +
-#define JA_AT   KC_LBRC  // @ and `
-#define JA_HAT  KC_EQL   // ^ and ~
-#define JA_ENUN KC_RO    // \ and _ (EN mark and UNder score)
-#define JA_ENVL KC_JYEN  // \ and | (EN mark and Vertical Line)
-#define JA_LBRC KC_RBRC  // [ and {
-#define JA_RBRC KC_BSLS  // ] and }
+// #define JA_CLON KC_QUOT  // : and +
+// #define JA_AT   KC_LBRC  // @ and `
+// #define JA_HAT  KC_EQL   // ^ and ~
+// #define JA_ENUN KC_RO    // \ and _ (EN mark and UNder score)
+// #define JA_ENVL KC_JYEN  // \ and | (EN mark and Vertical Line)
+// #define JA_LBRC KC_RBRC  // [ and {
+// #define JA_RBRC KC_BSLS  // ] and }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Windows layer
@@ -228,9 +228,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand
        KC_F7,           KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_TRNS,
-       TO(WINDOWS,1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+       TG(WINDOWS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
-       TO(WINDOWS,1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+       TG(WINDOWS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
                       KC_ACL2, KC_ACL1, KC_ACL0, KC_TRNS,  KC_TRNS,
        KC_BTN4, KC_BTN3,
        KC_PGUP,
@@ -283,12 +283,10 @@ void matrix_scan_user(void) {
       // TODO: Make this relevant to the ErgoDox EZ.
         case WINDOWS:
             ergodox_right_led_1_on();
-            _delay_ms(1000);
             ergodox_right_led_1_off();
             break;
         case MACOS:
             ergodox_right_led_2_on();
-            _delay_ms(1000);
             ergodox_right_led_2_off();
         case FN:
             ergodox_right_led_3_on();
