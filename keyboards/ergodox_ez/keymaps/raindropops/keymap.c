@@ -9,6 +9,7 @@
 #define FN      1  // functions
 #define TENKEY  2  // ten key
 #define MOUSE   3  // mouse mode
+#define OSX     4  // OSX
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Windows layer
@@ -41,9 +42,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
         KC_LALT,     KC_LGUI,      KC_LEFT,KC_RGHT,   MO(FN),
-                                               KC_GRV,       LCTL(KC_X),
-                                                              LCTL(KC_C),
-                                               KC_BSPC,KC_DELT,LCTL(KC_V),
+                                               KC_GRV,       KC_CUT,
+                                                              KC_COPY,
+                                               KC_BSPC,KC_DELT,KC_PASTE,
         // right hand
              KC_EQL,      KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
              TO(MOUSE,1), KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,             KC_LBRC,
@@ -54,7 +55,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_HOME,
              KC_END, KC_ENT, KC_SPC
     ),
-
 /* Keymap 1: Function Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -232,6 +232,9 @@ void matrix_scan_user(void) {
             break;
         case FN:
             ergodox_right_led_3_on();
+            break;
+        case TENKEY:
+            ergodox_right_led_2_on();
             break;
         case MOUSE:
             ergodox_led_all_on();
