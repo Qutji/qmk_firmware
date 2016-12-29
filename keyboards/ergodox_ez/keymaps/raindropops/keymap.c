@@ -283,13 +283,11 @@ void matrix_scan_user(void) {
       // TODO: Make this relevant to the ErgoDox EZ.
         case WINDOWS:
             ergodox_right_led_1_on();
-            _delay_ms(100);
-            ergodox_right_led_1_off();
+            ergodox_board_led_off();
             break;
         case MACOS:
             ergodox_right_led_2_on();
-            _delay_ms(100);
-            ergodox_right_led_2_off();
+            ergodox_board_led_off();
             break;
         case FN:
             ergodox_right_led_3_on();
