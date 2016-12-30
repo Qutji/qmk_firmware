@@ -5,20 +5,38 @@
 #include "debug.h"
 #include "action_layer.h"
 
+// Layer
 #define WINDOWS 0  // default layer (for Windows)
 #define FN      1  // functions
 #define TENKEY  2  // ten key
 #define MOUSE   3  // mouse mode
-#define MACOS     4  // MACOS
+#define MACOS   4  // MACOS
 
 // Aliases
-// #define JA_CLON KC_QUOT  // : and +
-// #define JA_AT   KC_LBRC  // @ and `
-// #define JA_HAT  KC_EQL   // ^ and ~
-// #define JA_ENUN KC_RO    // \ and _ (EN mark and UNder score)
-// #define JA_ENVL KC_JYEN  // \ and | (EN mark and Vertical Line)
-// #define JA_LBRC KC_RBRC  // [ and {
-// #define JA_RBRC KC_BSLS  // ] and }
+#define JA_CLON KC_QUOT  // : and +
+#define JA_AT   KC_LBRC  // @ and `
+#define JA_HAT  KC_EQL   // ^ and ~
+#define JA_ENUN KC_RO    // \ and _ (EN mark and UNder score)
+#define JA_ENVL KC_JYEN  // \ and | (EN mark and Vertical Line)
+#define JA_LBRC KC_RBRC  // [ and {
+#define JA_RBRC KC_BSLS  // ] and }
+
+#ifdef _WINDOWS
+#define AL_CUT LCTL(KC_X)
+#define AL_COPY LCTL(KC_C)
+#define AL_PASTE LCTL(KC_V)
+#define AL_CTL KC_LCTL
+#define AL_GUI KC_LGUI
+#else
+#define AL_CUT LGUI(KC_X)
+#define AL_COPY LGUI(KC_C)
+#define AL_PASTE LGUI(KC_V)
+#define AL_CTL KC_LGUI
+#define AL_GUI KC_LCTL
+#endif
+
+
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Windows layer
@@ -48,17 +66,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_CAPS,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   MO(TENKEY),
-        KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
+        AL_CTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
-        KC_LALT,     KC_LGUI,      KC_LEFT,KC_RGHT,   MO(FN),
-                                               KC_GRV,       LCTL(KC_X),
-                                                              LCTL(KC_C),
-                                               KC_BSPC,KC_DELT,LCTL(KC_V),
+        KC_LALT,     AL_GUI,      KC_LEFT,KC_RGHT,   MO(FN),
+                                               KC_GRV,       AL_CUT,
+                                                              AL_COPY,
+                                               KC_BSPC,KC_DELT,AL_PASTE,
         // right hand
              KC_EQL,      KC_6,   KC_7,   KC_8,   KC_9,   KC_0,      KC_MINS,
              TO(MOUSE, 1),   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
                           KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
-             KC_LGUI,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
+             AL_GUI,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
                                   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  TO(MACOS, 1),
              KC_LALT,        KC_GRV,
              KC_HOME,
@@ -68,9 +86,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: macOS layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   |   1  |   2  |   3  |   4  |   5  | CAPS |           |   ^  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  | CAPS |           |LMouse|   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  | LTKy |           |LMouse|   Y  |   U  |   I  |   O  |   P  |   `@   |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  | LTKy |           | =+   |   Y  |   U  |   I  |   O  |   P  |   `@   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | CTRL   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;+  |   :*   |
  * |--------+------+------+------+------+------| LFn  |           | LGui |------+------+------+------+------+--------|
@@ -79,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   | LAlt | LGui | Left | Right| LFn  |                                       |  ←   |   ↓  |   ↑  |  →   | LTWin |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | かな | cut  |       | Alt  | かな  |
+ *                                        | `~   | cut  |       | Alt  | かな  |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | copy |       | Home |        |      |
  *                                 |Backsp|Delete|------|       |------| Enter  |Space |
@@ -92,17 +110,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_CAPS,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_TRNS,
-        KC_LGUI,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
+        AL_CTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_TRNS,
-        KC_LALT,     KC_LCTL,      KC_LEFT,KC_RGHT,   KC_TRNS,
-                                               LCTL(KC_SPC),       LGUI(KC_X),
-                                                              LGUI(KC_C),
-                                               KC_BSPC,KC_DELT,LGUI(KC_V),
+        KC_LALT,     AL_GUI,      KC_LEFT,KC_RGHT,   KC_TRNS,
+                                                      KC_GRV,      AL_CUT,
+                                                                   AL_COPY,
+                                               KC_BSPC, KC_DELT,   AL_PASTE,
         // right hand
              KC_EQL,      KC_6,   KC_7,   KC_8,   KC_9,   KC_0,      KC_MINS,
              TO(MOUSE, 1),   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
                           KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
-             KC_LGUI,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
+             AL_GUI,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
                                   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  TO(WINDOWS, 1),
              KC_LALT,        LCTL(KC_SPC),
              KC_HOME,
