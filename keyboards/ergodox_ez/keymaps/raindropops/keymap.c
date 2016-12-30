@@ -6,11 +6,10 @@
 #include "action_layer.h"
 
 // Layer
-#define WINDOWS 0  // default layer (for Windows)
+#define BASE    0  // default layer
 #define FN      1  // functions
 #define TENKEY  2  // ten key
 #define MOUSE   3  // mouse mode
-#define MACOS   4  // MACOS
 
 // Aliases
 #define JA_CLON KC_QUOT  // : and +
@@ -22,17 +21,19 @@
 #define JA_RBRC KC_BSLS  // ] and }
 
 #ifdef _WINDOWS
-#define AL_CUT LCTL(KC_X)
-#define AL_COPY LCTL(KC_C)
-#define AL_PASTE LCTL(KC_V)
-#define AL_CTL KC_LCTL
-#define AL_GUI KC_LGUI
+#define AL_CUT LCTL(KC_X)     // Cut
+#define AL_COPY LCTL(KC_C)    // Copy
+#define AL_PASTE LCTL(KC_V)   // Paste
+#define AL_CTL KC_LCTL        // Ctrl
+#define AL_GUI KC_LGUI        // Windows Key
+#define AL_KANA KC_GRV        // Change Kana/Eisuu
 #else
-#define AL_CUT LGUI(KC_X)
-#define AL_COPY LGUI(KC_C)
-#define AL_PASTE LGUI(KC_V)
-#define AL_CTL KC_LGUI
-#define AL_GUI KC_LCTL
+#define AL_CUT LGUI(KC_X)     // Cut
+#define AL_COPY LGUI(KC_C)    // Copy
+#define AL_PASTE LGUI(KC_V)   // Paste
+#define AL_CTL KC_LGUI        // Command 
+#define AL_GUI KC_LCTL        // Ctrl
+#define AL_KANA LCTL(KC_SPC)  // Change Kana/Eisuu 
 #endif
 
 
@@ -50,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LFn  |           | LGui |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt | LGui | Left | Right| LFn  |                                       |  ←   |   ↓  |   ↑  |  →   | LTMAC |
+ *   | LAlt | LGui | Left | Right| LFn  |                                       |  ←   |   ↓  |   ↑  |  →   | RShift |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        | かな | cut  |       | Alt  | かな  |
@@ -62,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[WINDOWS] = KEYMAP(  // layer 0 : default
+[BASE] = KEYMAP(  // layer 0 : default
         // left hand
         KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_CAPS,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   MO(TENKEY),
@@ -77,52 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TO(MOUSE, 1),   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
                           KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
              AL_GUI,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
-                                  KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  TO(MACOS, 1),
+                                  KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  KC_RSFT,
              KC_LALT,        KC_GRV,
-             KC_HOME,
-             KC_END, KC_ENT, KC_SPC
-    ),
-
-/* Keymap 0: macOS layer
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   |   1  |   2  |   3  |   4  |   5  | CAPS |           |LMouse|   6  |   7  |   8  |   9  |   0  |   -    |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  | LTKy |           | =+   |   Y  |   U  |   I  |   O  |   P  |   `@   |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | CTRL   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;+  |   :*   |
- * |--------+------+------+------+------+------| LFn  |           | LGui |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt | LGui | Left | Right| LFn  |                                       |  ←   |   ↓  |   ↑  |  →   | LTWin |
- *   `----------------------------------'                                       `-----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | `~   | cut  |       | Alt  | かな  |
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | copy |       | Home |        |      |
- *                                 |Backsp|Delete|------|       |------| Enter  |Space |
- *                                 |ace   |      | paste|       | End  |        |      |
- *                                 `--------------------'       `----------------------'
- */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[MACOS] = KEYMAP(  // layer 0 : default
-        // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_CAPS,
-        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_TRNS,
-        AL_CTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
-        KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_TRNS,
-        KC_LALT,     AL_GUI,      KC_LEFT,KC_RGHT,   KC_TRNS,
-                                                      KC_GRV,      AL_CUT,
-                                                                   AL_COPY,
-                                               KC_BSPC, KC_DELT,   AL_PASTE,
-        // right hand
-             KC_EQL,      KC_6,   KC_7,   KC_8,   KC_9,   KC_0,      KC_MINS,
-             TO(MOUSE, 1),   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
-                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
-             AL_GUI,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
-                                  KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  TO(WINDOWS, 1),
-             KC_LALT,        LCTL(KC_SPC),
              KC_HOME,
              KC_END, KC_ENT, KC_SPC
     ),
@@ -246,9 +203,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand
        KC_F7,           KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_TRNS,
-       TO(MACOS,1),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+       TO(BASE,1),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
-       TO(WINDOWS,1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+       TO(BASE,1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
                       KC_ACL2, KC_ACL1, KC_ACL0, KC_TRNS,  KC_TRNS,
        KC_BTN4, KC_BTN3,
        KC_PGUP,
@@ -299,20 +256,13 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
-        case WINDOWS:
-            ergodox_right_led_1_on();
-            ergodox_board_led_off();
-            break;
-        case MACOS:
-            ergodox_right_led_2_on();
-            ergodox_board_led_off();
+        case BASE:
             break;
         case FN:
             ergodox_right_led_3_on();
             break;
         case TENKEY:
             ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
             break;
         case MOUSE:
             ergodox_led_all_on();
