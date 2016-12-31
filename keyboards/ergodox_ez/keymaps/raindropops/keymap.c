@@ -22,6 +22,10 @@
 #define JA_RBRC KC_BSLS  // ] and }
 #define CAPSLOCK LSFT(KC_CAPS)  //CapsLock
 
+#define TGL_WIN TO(WINDOWS, 2)  // Toggle Layer
+#define TGL_MAC TO(MAC, 2)      // Toggle Layer
+
+
 // Aliases for Windows
 #define WIN_CUT LCTL(KC_X)     // Cut
 #define WIN_COPY LCTL(KC_C)    // Copy
@@ -62,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(MOUSE),
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
-        KC_LALT,     KC_LGUI,      KC_LEFT,KC_RGHT,   GUI_T(TO(MACOS,1)),
+        KC_LALT,     KC_LGUI,      KC_LEFT,KC_RGHT,   GUI_T(TGL_WIN),
                                                WIN_KANA,             WIN_CUT,
                                                                     WIN_COPY,
                                                KC_BSPC,KC_DELT,    WIN_PASTE,
@@ -71,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         JA_LBRC,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
                     KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
         JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
-                            KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  MT(KC_RSFT, KC_JYEN),
+                            KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  SFT_T(KC_JYEN),
         CAPSLOCK,       WIN_KANA,
         KC_HOME,
         KC_END, KC_ENT, KC_SPC
@@ -104,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(MOUSE),
         KC_LGUI,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
-        KC_LALT,     KC_LCTL,      KC_LEFT,KC_RGHT,   CTL_T(TO(WINDOWS,1)),
+        KC_LALT,     KC_LCTL,      KC_LEFT,KC_RGHT,   CTL_T(TGL_WIN),
                                                MAC_KANA,          MAC_CUT,
                                                                   MAC_COPY,
                                                KC_BSPC,KC_DELT,   MAC_PASTE,
@@ -113,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         JA_LBRC,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
                     KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
         JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
-                            KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  MT(KC_RSFT, KC_JYEN),
+                            KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  SFT_T(KC_JYEN),
         CAPSLOCK,       MAC_KANA,
         KC_HOME,
         KC_END, KC_ENT, KC_SPC
