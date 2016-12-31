@@ -24,7 +24,7 @@
 #define CAPSLOCK LSFT(KC_CAPS)  //CapsLock
 
 #define TGL_WIN TO(WINDOWS, 2)  // Toggle Layer
-#define TGL_MAC TO(MAC, 2)      // Toggle Layer
+#define TGL_MAC TO(MACOS, 2)      // Toggle Layer
 
 
 // Aliases for Windows
