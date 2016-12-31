@@ -319,7 +319,7 @@ void matrix_scan_user(void) {
             ergodox_right_led_1_on();
             break;
         case MACOS:
-            ergodox_right_led_2_on();
+            //ergodox_right_led_2_on();
             break;
         case FN:
             ergodox_right_led_3_on();
@@ -335,17 +335,6 @@ void matrix_scan_user(void) {
         default:
             // none
             break;
-    }
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
-        case WINDOWS:
-        case MACOS:
-          _delay_ms(3000);
-          ergodox_board_led_off();
-          ergodox_right_led_1_off();
-          ergodox_right_led_2_off();
-          ergodox_right_led_3_off();
-          break;
     }
 
 };
