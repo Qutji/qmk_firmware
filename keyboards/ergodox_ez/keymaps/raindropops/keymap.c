@@ -11,6 +11,7 @@
 #define FN          2  // functions
 #define TENKEY      3  // ten key
 #define MOUSE       4  // mouse mode
+#define MOUSE       4  // mouse mode
 
 // Aliases
 #define JA_CLON KC_QUOT  // : and +
@@ -50,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LFn  |           |  ]}  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt | LGui | Left | Right| LMac |                                       |  ←   |   ↓  |   ↑  |  →   | RSft/\ |
+ *   | LAlt | LGui | Left | Right| LMac |                                       |  ←   |   ↓  |   ↑  |  →   | Sft/\ |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        | Kana | cut  |       | CAPS | Kana   |
@@ -66,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(MOUSE),
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
-        KC_LALT,     KC_LGUI,      KC_LEFT,KC_RGHT,   GUI_T(TGL_WIN),
+        KC_LALT,     KC_LGUI,      TGL_WIN,TGL_MAC, KC_LGUI,
                                                WIN_KANA,             WIN_CUT,
                                                                     WIN_COPY,
                                                KC_BSPC,KC_DELT,    WIN_PASTE,
@@ -92,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LFn  |           |  ]}  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt | CTRL | Left | Right| LWin |                                       |  ←   |   ↓  |   ↑  |  →   | RShift |
+ *   | LAlt | CTRL | Left | Right| LWin |                                       |  ←   |   ↓  |   ↑  |  →   | Sft/\  |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        | kana | cut  |       | CAPS | Kana   |
@@ -108,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(MOUSE),
         KC_LGUI,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
-        KC_LALT,     KC_LCTL,      KC_LEFT,KC_RGHT,   CTL_T(TGL_WIN),
+        KC_LALT,     KC_LCTL,      TGL_WIN,TGL_MAC,   KC_LCTL,
                                                MAC_KANA,          MAC_CUT,
                                                                   MAC_COPY,
                                                KC_BSPC,KC_DELT,   MAC_PASTE,
@@ -243,9 +244,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                    KC_TRNS, KC_TRNS, KC_TRNS,
        // right hand
        KC_F7,           KC_F8,   KC_F9,  KC_F10,  KC_F11,  KC_F12,  KC_TRNS,
-       TO(WINDOWS,1),   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+       TGL_WIN,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
-       TO(MACOS,1), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
+       TGL_MAC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
                       KC_ACL2, KC_ACL1, KC_ACL0, KC_TRNS,  KC_TRNS,
        KC_BTN4, KC_BTN3,
        KC_PGUP,
