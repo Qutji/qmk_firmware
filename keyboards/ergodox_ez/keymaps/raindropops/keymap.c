@@ -271,19 +271,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
         // check layer  
         case 1:
-          matrix_scan_user();
-          _delay_ms(3000);
-          ergodox_board_led_off();
-          ergodox_right_led_1_off();
-          ergodox_right_led_2_off();
-          ergodox_right_led_3_off();
+          // matrix_scan_user();
+          // _delay_ms(3000);
+          // ergodox_board_led_off();
+          // ergodox_right_led_1_off();
+          // ergodox_right_led_2_off();
+          // ergodox_right_led_3_off();
           break;
         // led off
         case 2:
-          ergodox_board_led_off();
-          ergodox_right_led_1_off();
-          ergodox_right_led_2_off();
-          ergodox_right_led_3_off();
+          // ergodox_board_led_off();
+          // ergodox_right_led_1_off();
+          // ergodox_right_led_2_off();
+          // ergodox_right_led_3_off();
           break;
 
     }
