@@ -1,6 +1,8 @@
 // modified following file.
 // https://github.com/msc654/qmk_firmware/blob/master/keyboard%2Fergodox_ez%2Fkeymaps%2Fdefault%2Fkeymap.c
 
+#include <sys/utsname.h>
+
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
@@ -11,6 +13,10 @@
 #define TENKEY  2  // ten key
 #define MOUSE   3  // mouse mode
 
+#define MACRO_CUT   1
+#define MACRO_COPY  2
+#define MACRO_PASTE 3
+
 // Aliases
 #define JA_CLON KC_QUOT  // : and +
 #define JA_AT   KC_LBRC  // @ and `
@@ -19,6 +25,7 @@
 #define JA_ENVL KC_JYEN  // \ and | (EN mark and Vertical Line)
 #define JA_LBRC KC_RBRC  // [ and {
 #define JA_RBRC KC_BSLS  // ] and }
+#define CAPSLOCK LSFT(KC_CAPS)  //CapsLock
 
 #ifdef _WINDOWS
 #define AL_CUT LCTL(KC_X)     // Cut
@@ -26,35 +33,32 @@
 #define AL_PASTE LCTL(KC_V)   // Paste
 #define AL_CTL KC_LCTL        // Ctrl
 #define AL_GUI KC_LGUI        // Windows Key
-#define AL_KANA KC_GRV        // Change Kana/Eisuu
+#define AL_KANA KC_GRV        // Change Kana/Eisuu Toggle
 #else
 #define AL_CUT LGUI(KC_X)     // Cut
 #define AL_COPY LGUI(KC_C)    // Copy
 #define AL_PASTE LGUI(KC_V)   // Paste
 #define AL_CTL KC_LGUI        // Command 
 #define AL_GUI KC_LCTL        // Ctrl
-#define AL_KANA LCTL(KC_SPC)  // Change Kana/Eisuu 
+#define AL_KANA LCTL(KC_SPC)  // Change Kana/Eisuu Toggle
 #endif
 
-
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Windows layer
+/* Keymap 0: Base layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |  Esc   |   1  |   2  |   3  |   4  |   5  | CAPS |           |   ^  |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  | LTKy |           |LMouse|   Y  |   U  |   I  |   O  |   P  |   `@   |
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  | LTKy |           |  [{  |   Y  |   U  |   I  |   O  |   P  |   `@   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | CTRL   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;+  |   :*   |
- * |--------+------+------+------+------+------| LFn  |           | LGui |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------| LFn  |           |  ]}  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | LAlt | LGui | Left | Right| LFn  |                                       |  ←   |   ↓  |   ↑  |  →   | RShift |
  *   `----------------------------------'                                       `-----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | かな | cut  |       | Alt  | かな  |
+ *                                        ,-------------.       ,---------------.
+ *                                        | Eisu | cut  |       | CAPS | Kana   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | copy |       | Home |        |      |
  *                                 |Backsp|Delete|------|       |------| Enter  |Space |
@@ -65,21 +69,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = KEYMAP(  // layer 0 : default
         // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_CAPS,
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUSE),
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   MO(TENKEY),
         AL_CTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
         KC_LALT,     AL_GUI,      KC_LEFT,KC_RGHT,   MO(FN),
-                                               KC_GRV,       AL_CUT,
-                                                              AL_COPY,
-                                               KC_BSPC,KC_DELT,AL_PASTE,
+                                               KC_LANG2,       M(MACRO_CUT),
+                                                              M(MACRO_COPY),
+                                               KC_BSPC,KC_DELT,M(MACRO_PASTE),
         // right hand
              KC_EQL,      KC_6,   KC_7,   KC_8,   KC_9,   KC_0,      KC_MINS,
-             TO(MOUSE, 1),   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
+             JA_LBRC,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
                           KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
-             AL_GUI,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
+             JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
                                   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  KC_RSFT,
-             KC_LALT,        KC_GRV,
+             CAPSLOCK,       KC_LANG1,
              KC_HOME,
              KC_END, KC_ENT, KC_SPC
     ),
@@ -108,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Fnctions
 [FN] = KEYMAP(
        // left hand
-       KC_TRNS,       KC_F1,      KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+       M(0),       KC_F1,      KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
        KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -174,8 +178,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  | F6   |           | F7   |  F8  |  F9  | F10  |  F11 |  F12 |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      | M-Up |      |      |      | Back |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------| Space|           | LWin |------+------+------+------+------+--------|
+ * |        |      | M-Up |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           | LWin |------+------+------+------+------+--------|
  * |        |  M-L | M-Dn | M-R  |      |      |------|           |------|      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           | LWin |      |      |      |      |      |        |
@@ -194,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MOUSE] = KEYMAP(
        // left hand
        KC_TRNS,       KC_F1,      KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
-       KC_TRNS,     KC_TRNS,    KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSPC,
+       KC_TRNS,     KC_TRNS,    KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,     KC_MS_L,    KC_MS_D, KC_MS_R, KC_TRNS, KC_TRNS,
        KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,     KC_TRNS,    KC_TRNS, KC_WH_L, KC_WH_R,
@@ -219,15 +223,56 @@ const uint16_t PROGMEM fn_actions[] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
+    // Get uname
+    struct utsname s;
+    uname(&s);
+
     // MACRODOWN only works in this function
     switch(id) {
         case 0:
             if (record->event.pressed) {
-                register_code(KC_RSFT);
-            } else {
-                unregister_code(KC_RSFT);
+                SEND_STRING(s.sysname);
             }
             break;
+
+        // CUT
+        case MACRO_CUT:
+          if (record->event.pressed) {
+            switch(s.sysname) {
+              case "Darwin":
+                return MACRO(D(LGUI), T(V));
+              default:
+                return MACRO(D(LCTL), T(X));
+            }
+          }
+          break;
+
+        // COPY
+        case MACRO_COPY:
+          if (record->event.pressed) {
+            switch(s.sysname) {
+              case "Darwin":
+                return MACRO(D(LGUI), T(C));
+              default:
+                return MACRO(D(LCTL), T(C));
+                break;
+            }
+          }
+          break;
+
+        // PASTE
+        case MACRO_PASTE:
+          if (record->event.pressed) {
+            switch(s.sysname) {
+              case "Darwin":
+                return MACRO(D(LGUI), T(V));
+                break;
+              default:
+                return MACRO(D(LCTL), T(V));
+                break;
+            }
+          }
+          break;
     }
     return MACRO_NONE;
 };
