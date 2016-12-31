@@ -26,11 +26,13 @@
 #define WIN_CUT LCTL(KC_X)     // Cut
 #define WIN_COPY LCTL(KC_C)    // Copy
 #define WIN_PASTE LCTL(KC_V)   // Paste
+#define WIN_KANA KC_GRV
 
 // Aliases for macOS
 #define MAC_CUT LGUI(KC_X)     // Cut
 #define MAC_COPY LGUI(KC_C)    // Copy
 #define MAC_PASTE LGUI(KC_V)   // Paste
+#define MAC_KANA  LCTL(KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base layer
@@ -47,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   | LAlt | LGui | Left | Right| LMac |                                       |  ←   |   ↓  |   ↑  |  →   | RShift |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        | Eisu | cut  |       | CAPS | Kana   |
+ *                                        | Kana | cut  |       | CAPS | Kana   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | copy |       | Home |        |      |
  *                                 |Backsp|Delete|------|       |------| Enter  |Space |
@@ -61,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
         KC_LALT,     KC_LGUI,      KC_LEFT,KC_RGHT,   TO(MACOS,1),
-                                               KC_LANG2,             WIN_CUT,
+                                               WIN_KANA,             WIN_CUT,
                                                                     WIN_COPY,
                                                KC_BSPC,KC_DELT,    WIN_PASTE,
         // right hand
@@ -70,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
         JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
                             KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  KC_RSFT,
-        CAPSLOCK,       KC_LANG1,
+        CAPSLOCK,       WIN_KANA,
         KC_HOME,
         KC_END, KC_ENT, KC_SPC
     ),
@@ -89,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *   | LAlt | CTRL | Left | Right| LWin |                                       |  ←   |   ↓  |   ↑  |  →   | RShift |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,---------------.
- *                                        | Eisu | cut  |       | CAPS | Kana   |
+ *                                        | kana | cut  |       | CAPS | Kana   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | copy |       | Home |        |      |
  *                                 |Backsp|Delete|------|       |------| Enter  |Space |
@@ -103,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LGUI,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
         KC_LALT,     KC_LCTL,      KC_LEFT,KC_RGHT,   TO(WINDOWS,1),
-                                               KC_LANG2,          MAC_CUT,
+                                               MAC_KANA,          MAC_CUT,
                                                                   MAC_COPY,
                                                KC_BSPC,KC_DELT,   MAC_PASTE,
         // right hand
@@ -112,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
         JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
                             KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  KC_RSFT,
-        CAPSLOCK,       KC_LANG1,
+        CAPSLOCK,       MAC_KANA,
         KC_HOME,
         KC_END, KC_ENT, KC_SPC
     ),
