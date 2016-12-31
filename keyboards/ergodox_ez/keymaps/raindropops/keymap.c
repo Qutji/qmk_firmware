@@ -1,21 +1,16 @@
 // modified following file.
 // https://github.com/msc654/qmk_firmware/blob/master/keyboard%2Fergodox_ez%2Fkeymaps%2Fdefault%2Fkeymap.c
 
-#include <sys/utsname.h>
-
 #include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
 
 // Layer
-#define BASE    0  // default layer
-#define FN      1  // functions
-#define TENKEY  2  // ten key
-#define MOUSE   3  // mouse mode
-
-#define MACRO_CUT   1
-#define MACRO_COPY  2
-#define MACRO_PASTE 3
+#define WINDOWS     0  // default layer for windows
+#define MACOS       1  // default layer for macOS
+#define FN          2  // functions
+#define TENKEY      3  // ten key
+#define MOUSE       4  // mouse mode
 
 // Aliases
 #define JA_CLON KC_QUOT  // : and +
@@ -27,27 +22,21 @@
 #define JA_RBRC KC_BSLS  // ] and }
 #define CAPSLOCK LSFT(KC_CAPS)  //CapsLock
 
-#ifdef _WINDOWS
-#define AL_CUT LCTL(KC_X)     // Cut
-#define AL_COPY LCTL(KC_C)    // Copy
-#define AL_PASTE LCTL(KC_V)   // Paste
-#define AL_CTL KC_LCTL        // Ctrl
-#define AL_GUI KC_LGUI        // Windows Key
-#define AL_KANA KC_GRV        // Change Kana/Eisuu Toggle
-#else
-#define AL_CUT LGUI(KC_X)     // Cut
-#define AL_COPY LGUI(KC_C)    // Copy
-#define AL_PASTE LGUI(KC_V)   // Paste
-#define AL_CTL KC_LGUI        // Command 
-#define AL_GUI KC_LCTL        // Ctrl
-#define AL_KANA LCTL(KC_SPC)  // Change Kana/Eisuu Toggle
-#endif
+// Aliases for Windows
+#define WIN_CUT LCTL(KC_X)     // Cut
+#define WIN_COPY LCTL(KC_C)    // Copy
+#define WIN_PASTE LCTL(KC_V)   // Paste
+
+// Aliases for macOS
+#define MAC_CUT LGUI(KC_X)     // Cut
+#define MAC_COPY LGUI(KC_C)    // Copy
+#define MAC_PASTE LGUI(KC_V)   // Paste
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Base layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   |   1  |   2  |   3  |   4  |   5  | CAPS |           |   ^  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  |LMouse|           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -    |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  | LTKy |           |  [{  |   Y  |   U  |   I  |   O  |   P  |   `@   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -65,30 +54,70 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |ace   |      | paste|       | End  |        |      |
  *                                 `--------------------'       `----------------------'
  */
-// If it accepts an argument (i.e, is a function), it doesn't need KC_.
-// Otherwise, it needs KC_*
-[BASE] = KEYMAP(  // layer 0 : default
+[WINDOWS] = KEYMAP(
         // left hand
         KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUSE),
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   MO(TENKEY),
         AL_CTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
         KC_LALT,     AL_GUI,      KC_LEFT,KC_RGHT,   MO(FN),
-                                               KC_LANG2,       M(MACRO_CUT),
-                                                              M(MACRO_COPY),
-                                               KC_BSPC,KC_DELT,M(MACRO_PASTE),
+                                               KC_LANG2,             WIN_CUT,
+                                                                    WIN_COPY,
+                                               KC_BSPC,KC_DELT,    WIN_PASTE,
         // right hand
-             KC_EQL,      KC_6,   KC_7,   KC_8,   KC_9,   KC_0,      KC_MINS,
-             JA_LBRC,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
-                          KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
-             JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
-                                  KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  KC_RSFT,
-             CAPSLOCK,       KC_LANG1,
-             KC_HOME,
-             KC_END, KC_ENT, KC_SPC
+        KC_EQL,      KC_6,   KC_7,   KC_8,   KC_9,   KC_0,      KC_MINS,
+        JA_LBRC,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
+                    KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
+        JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
+                            KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  KC_RSFT,
+        CAPSLOCK,       KC_LANG1,
+        KC_HOME,
+        KC_END, KC_ENT, KC_SPC
     ),
 
-/* Keymap 1: Function Layer
+/* Keymap 1: Base layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  |LMouse|           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  | LTKy |           |  [{  |   Y  |   U  |   I  |   O  |   P  |   `@   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |Command |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;+  |   :*   |
+ * |--------+------+------+------+------+------| LFn  |           |  ]}  |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   | LAlt | CTRL | Left | Right| LFn  |                                       |  ←   |   ↓  |   ↑  |  →   | RShift |
+ *   `----------------------------------'                                       `-----------------------------------'
+ *                                        ,-------------.       ,---------------.
+ *                                        | Eisu | cut  |       | CAPS | Kana   |
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      | copy |       | Home |        |      |
+ *                                 |Backsp|Delete|------|       |------| Enter  |Space |
+ *                                 |ace   |      | paste|       | End  |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+[MACOS] = KEYMAP(
+        // left hand
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(MOUSE),
+        KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   MO(TENKEY),
+        KC_LGUI,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
+        KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   MO(FN),
+        KC_LALT,     KC_LCTL,      KC_LEFT,KC_RGHT,   MO(FN),
+                                               KC_LANG2,          MAC_CUT,
+                                                                  MAC_COPY,
+                                               KC_BSPC,KC_DELT,   MAC_PASTE,
+        // right hand
+        KC_EQL,      KC_6,   KC_7,   KC_8,   KC_9,   KC_0,      KC_MINS,
+        JA_LBRC,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
+                    KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
+        JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
+                            KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  KC_RSFT,
+        CAPSLOCK,       KC_LANG1,
+        KC_HOME,
+        KC_END, KC_ENT, KC_SPC
+    ),
+
+/* Keymap 2: Function Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |  F1  |  F2  |  F3  |  F4  |  F5  | F6   |           | F7   |  F8  |  F9  | F10  |  F11 |  F12 |   |    |
@@ -130,7 +159,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
     ),
-/* Keymap 2: Ten key Layer
+
+/* Keymap 3: Ten key Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
@@ -223,56 +253,14 @@ const uint16_t PROGMEM fn_actions[] = {
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
-    // Get uname
-    struct utsname s;
-    uname(&s);
 
     // MACRODOWN only works in this function
     switch(id) {
         case 0:
-            if (record->event.pressed) {
-                SEND_STRING(s.sysname);
-            }
+            // if (record->event.pressed) {
+            //     SEND_STRING(s.sysname);
+            // }
             break;
-
-        // CUT
-        case MACRO_CUT:
-          if (record->event.pressed) {
-            switch(s.sysname) {
-              case "Darwin":
-                return MACRO(D(LGUI), T(V));
-              default:
-                return MACRO(D(LCTL), T(X));
-            }
-          }
-          break;
-
-        // COPY
-        case MACRO_COPY:
-          if (record->event.pressed) {
-            switch(s.sysname) {
-              case "Darwin":
-                return MACRO(D(LGUI), T(C));
-              default:
-                return MACRO(D(LCTL), T(C));
-                break;
-            }
-          }
-          break;
-
-        // PASTE
-        case MACRO_PASTE:
-          if (record->event.pressed) {
-            switch(s.sysname) {
-              case "Darwin":
-                return MACRO(D(LGUI), T(V));
-                break;
-              default:
-                return MACRO(D(LCTL), T(V));
-                break;
-            }
-          }
-          break;
     }
     return MACRO_NONE;
 };
@@ -299,14 +287,21 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
+
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
-        case BASE:
+        case WINDOWS:
+            ergodox_right_led_1_on();
+            break;
+        case MACOS:
+            ergodox_right_led_2_on();
             break;
         case FN:
             ergodox_right_led_3_on();
+            ergodox_right_led_1_on();
             break;
         case TENKEY:
+            ergodox_right_led_3_on();
             ergodox_right_led_2_on();
             break;
         case MOUSE:
