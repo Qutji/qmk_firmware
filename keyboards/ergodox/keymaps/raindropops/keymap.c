@@ -5,7 +5,7 @@
 
 // Layer
 enum { 
-  WINDOWS = 0 // for Windows(default layer)
+  WINDOWS = 0, // for Windows(default layer)
   MACOS,      // for macOS
   FN,         // functions
   TENKEY,     // ten key

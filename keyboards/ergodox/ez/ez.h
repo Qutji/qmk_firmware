@@ -30,9 +30,8 @@ void ergodox_blink_all_leds(void);
 uint8_t init_mcp23018(void);
 uint8_t ergodox_left_leds_update(void);
 
-#define LED_BRIGHTNESS_LO       15
-#define LED_BRIGHTNESS_HI       20
-
+#define LED_BRIGHTNESS_LO       5
+#define LED_BRIGHTNESS_HI       5
 
 inline void ergodox_board_led_on(void)      { DDRD |=  (1<<6); PORTD |=  (1<<6); }
 inline void ergodox_right_led_1_on(void)    { DDRB |=  (1<<5); PORTB |=  (1<<5); }
