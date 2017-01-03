@@ -20,9 +20,9 @@ RUN apt-get install --no-install-recommends -y build-essential \
 RUN apt-get clean
 RUN rm -rf /var/lib/apt/lists/*
 
-ENV keyboard=ergodox_ez
+ENV keyboard=ergodox
+ENV subproject=ez
 ENV keymap=default
 
 VOLUME /qmk
 WORKDIR /qmk
-CMD make clean ; make keyboard=${keyboard} keymap=${keymap}
