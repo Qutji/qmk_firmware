@@ -1,17 +1,16 @@
-// modified following file.
-// https://github.com/msc654/qmk_firmware/blob/master/keyboard%2Fergodox_ez%2Fkeymaps%2Fdefault%2Fkeymap.c
-
 #include "ergodox.h"
 #include "debug.h"
 #include "action_layer.h"
+#include "led.h"
 
 // Layer
-#define WINDOWS     0  // default layer for windows
-#define MACOS       1  // default layer for macOS
-#define FN          2  // functions
-#define TENKEY      3  // ten key
-#define MOUSE       4  // mouse mode
-#define MOUSE       4  // mouse mode
+enum { 
+  WINDOWS = 0 // for Windows(default layer)
+  MACOS,      // for macOS
+  FN,         // functions
+  TENKEY,     // ten key
+  MOUSE       // mouse mode
+}
 
 // Aliases
 #define JA_CLON KC_QUOT  // : and +
@@ -292,15 +291,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-    ergodox_board_led_off();
-    ergodox_right_led_1_on();
-    ergodox_right_led_2_on();
-    ergodox_right_led_3_on();
-    ergodox_board_led_off();
-    ergodox_right_led_1_on();
-    ergodox_right_led_2_on();
-    ergodox_right_led_3_on();
-    ergodox_board_led_off();    
+
 };
 
 // Runs constantly in the background, in a loop.
@@ -309,6 +300,7 @@ void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
     ergodox_board_led_off();
+
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
@@ -316,25 +308,32 @@ void matrix_scan_user(void) {
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
         case WINDOWS:
-            ergodox_right_led_1_on();
-            break;
-        case MACOS:
-            //ergodox_right_led_2_on();
-            break;
-        case FN:
-            ergodox_right_led_3_on();
-            ergodox_right_led_1_on();
-            break;
-        case TENKEY:
-            ergodox_right_led_3_on();
+            ergodox_led_all_set(1);
             ergodox_right_led_2_on();
             break;
+        case MACOS:
+            ergodox_led_all_set(1);
+            ergodox_right_led_3_on();
+            break;
+        case FN:
+            ergodox_led_all_set(5);
+            ergodox_right_led_2_on();
+            break;
+        case TENKEY:
+            ergodox_led_all_set(5);
+            ergodox_right_led_3_on();
+            break;
         case MOUSE:
-            ergodox_led_all_on();
+            ergodox_led_all_set(5);
+            ergodox_right_led_2_on();
+            ergodox_right_led_3_on();
             break;
         default:
-            // none
             break;
     }
 
+    // led 3: caps lock
+    if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
+      ergodox_right_led_1_on();
+    }
 };
