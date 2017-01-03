@@ -23,8 +23,8 @@
 #define JA_RBRC KC_BSLS  // ] and }
 #define CAPSLOCK LSFT(KC_CAPS)  //CapsLock
 
-#define TGL_WIN TO(WINDOWS, 2)  // Toggle Layer
-#define TGL_MAC TO(MACOS, 2)      // Toggle Layer
+#define TGL_WIN TG(WINDOWS)  // Toggle Layer
+#define TGL_MAC TG(MACOS)      // Toggle Layer
 
 
 // Aliases for Windows
