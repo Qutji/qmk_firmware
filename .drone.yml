@@ -4,7 +4,7 @@ build:
     - env
     - cd /home/ergodox
     - git clone https://bitbucket.org/ymotongpoo/qmk_firmware.git
-    - cd /home/ergodox/qmk_firmware/keyboard/ergodox_ez
+    - cd /home/ergodox/qmk_firmware/keyboard/ergodox
     - make clean && make KEYMAP=default
     - sudo mkdir -p /drone/src/bitbucket.org/ymotongpoo/qmk_firmware
     - sudo mv ergodox_ez.hex /drone/src/bitbucket.org/ymotongpoo/qmk_firmware/ergodox_ez.hex

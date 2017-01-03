@@ -5,7 +5,7 @@
 #   - REPO_URL : Git repository URL of qmk_firmware.
 #   - KEYMAP   : Preferred keymap.
 WORK_DIR=/home/ergodox
-TARGET_DIR=$WORK_DIR/qmk_firmware/keyboard/ergodox_ez
+TARGET_DIR=$WORK_DIR/qmk_firmware/keyboard/ergodox
 git clone $REPO_URL 
 cd $TARGET_DIR
 make 
