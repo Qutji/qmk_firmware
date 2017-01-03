@@ -10,7 +10,7 @@ enum {
   FN,         // functions
   TENKEY,     // ten key
   MOUSE       // mouse mode
-}
+};
 
 // Aliases
 #define JA_CLON KC_QUOT  // : and +
