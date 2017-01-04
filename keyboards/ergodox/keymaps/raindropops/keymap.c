@@ -9,8 +9,12 @@ enum {
   MACOS,      // for macOS
   FN,         // functions
   TENKEY,     // ten key
-  MOUSE       // mouse mode
+  MOUSE,       // mouse mode
+  LEDOFF      //LED off  
 };
+
+#define MY_LED_BRIGHTNESS_LO 1
+#define MY_LED_BRIGHTNESS_HI 5
 
 // Aliases
 #define JA_CLON KC_QUOT  // : and +
@@ -24,6 +28,7 @@ enum {
 
 #define TGL_WIN TG(WINDOWS)  // Toggle Layer
 #define TGL_MAC TG(MACOS)      // Toggle Layer
+#define TGL_LED TG(LEDOFF)      // Toggle Layer
 
 
 // Aliases for Windows
@@ -66,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(MOUSE),
         KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   TG(FN),
-        KC_LALT,     M(1),      TGL_WIN,TGL_MAC, KC_LGUI,
+        KC_LALT,     TGL_LED,      TGL_WIN,TGL_MAC, KC_LGUI,
                                                WIN_KANA,             WIN_CUT,
                                                                     WIN_COPY,
                                                KC_BSPC,KC_DELT,    WIN_PASTE,
@@ -78,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  SFT_T(KC_JYEN),
         CAPSLOCK,       WIN_KANA,
         KC_HOME,
-        LT(FN, KC_END), KC_ENT, KC_SPC
+        KC_END, LT(FN, KC_ENT), KC_SPC
     ),
 
 /* Keymap 1: Base layer
@@ -108,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(MOUSE),
         KC_LGUI,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   TG(FN),
-        KC_LALT,     M(1),      TGL_WIN,TGL_MAC,   KC_LCTL,
+        KC_LALT,     TGL_LED,      TGL_WIN,TGL_MAC,   KC_LCTL,
                                                MAC_KANA,          MAC_CUT,
                                                                   MAC_COPY,
                                                KC_BSPC,KC_DELT,   MAC_PASTE,
@@ -120,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  SFT_T(KC_JYEN),
         CAPSLOCK,       MAC_KANA,
         KC_HOME,
-        LT(FN, KC_END), KC_ENT, KC_SPC
+        KC_END, LT(FN, KC_ENT), KC_SPC
     ),
 
 /* Keymap 2: Function Layer
@@ -147,8 +152,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Fnctions
 [FN] = KEYMAP(
        // left hand
-       M(1),       KC_F1,      KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
-       M(2),     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,       KC_F1,      KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
+       KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
@@ -251,6 +256,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_PGUP,
        KC_PGDN, KC_BTN1, KC_BTN2
     ),
+
+
+
+/* Keymap: LED off Layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      |      |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
+[LEDOFF] = KEYMAP(
+       // left hand
+       KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS,     KC_TRNS,    KC_TRNS, KC_TRNS, KC_TRNS,
+                                                            KC_TRNS, KC_TRNS,
+                                                                     KC_TRNS,
+                                                   KC_TRNS, KC_TRNS, KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, 
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+    ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -267,24 +316,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             //     SEND_STRING(s.sysname);
             // }
             break;
-
-        // check layer  
-        case 1:
-          // matrix_scan_user();
-          // _delay_ms(3000);
-          // ergodox_board_led_off();
-          // ergodox_right_led_1_off();
-          // ergodox_right_led_2_off();
-          // ergodox_right_led_3_off();
-          break;
-        // led off
-        case 2:
-          // ergodox_board_led_off();
-          // ergodox_right_led_1_off();
-          // ergodox_right_led_2_off();
-          // ergodox_right_led_3_off();
-          break;
-
     }
     return MACRO_NONE;
 };
@@ -308,23 +339,23 @@ void matrix_scan_user(void) {
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
         case WINDOWS:
-            ergodox_led_all_set(1);
+            ergodox_led_all_set(MY_LED_BRIGHTNESS_LO);
             ergodox_right_led_2_on();
             break;
         case MACOS:
-            ergodox_led_all_set(1);
+            ergodox_led_all_set(MY_LED_BRIGHTNESS_LO);
             ergodox_right_led_3_on();
             break;
         case FN:
-            ergodox_led_all_set(5);
+            ergodox_led_all_set(MY_LED_BRIGHTNESS_HI);
             ergodox_right_led_2_on();
             break;
         case TENKEY:
-            ergodox_led_all_set(5);
+            ergodox_led_all_set(MY_LED_BRIGHTNESS_HI);
             ergodox_right_led_3_on();
             break;
         case MOUSE:
-            ergodox_led_all_set(5);
+            ergodox_led_all_set(MY_LED_BRIGHTNESS_HI);
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
             break;
@@ -332,7 +363,7 @@ void matrix_scan_user(void) {
             break;
     }
 
-    // led 3: caps lock
+    // caps lock
     if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
       ergodox_right_led_1_on();
     }
