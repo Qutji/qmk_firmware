@@ -6,15 +6,16 @@
 // Layer
 enum { 
   WINDOWS = 0, // for Windows(default layer)
-  MACOS,      // for macOS
-  FN,         // functions
-  TENKEY,     // ten key
+  MACOS,       // for macOS
+  FN,          // functions
+  TENKEY,      // ten key
   MOUSE,       // mouse mode
-  LEDOFF      //LED off  
+  LEDOFF       // LED off  
 };
 
+// LED Brightness
 #define MY_LED_BRIGHTNESS_LO 1
-#define MY_LED_BRIGHTNESS_HI 5
+#define MY_LED_BRIGHTNESS_HI 10
 
 // Aliases
 #define JA_CLON KC_QUOT  // : and +
@@ -26,9 +27,9 @@ enum {
 #define JA_RBRC KC_BSLS  // ] and }
 #define CAPSLOCK LSFT(KC_CAPS)  //CapsLock
 
-#define TGL_WIN TG(WINDOWS)  // Toggle Layer
+#define TGL_WIN TG(WINDOWS)    // Toggle Layer
 #define TGL_MAC TG(MACOS)      // Toggle Layer
-#define TGL_LED TG(LEDOFF)      // Toggle Layer
+#define TGL_LED TG(LEDOFF)     // Toggle Layer
 
 
 // Aliases for Windows
@@ -44,10 +45,10 @@ enum {
 #define MAC_KANA  LCTL(KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/* Keymap 0: Base layer
+/* Keymap 0: Windows layer(Base Layer)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   |   1  |   2  |   3  |   4  |   5  | LTKy |           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -    |
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  | LTKy |           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -=   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |LMouse|           |  [{  |   Y  |   U  |   I  |   O  |   P  |   `@   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -55,14 +56,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LFn  |           |  ]}  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt | LGui | Left | Right| LMac |                                       |  ←   |   ↓  |   ↑  |  →   | Sft/\ |
+ *   | LAlt |LEDOFF| LWIN | LMAC | LGui |                                       |  ←   |   ↓  |   ↑  |  →   | Sft/\ |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        | Kana | cut  |       | CAPS | Kana   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | copy |       | Home |        |      |
  *                                 |Backsp|Delete|------|       |------| Enter  |Space |
- *                                 |ace   |      | paste|       | End  |        |      |
+ *                                 |ace   |      | paste|       | End  | LFn    |      |
  *                                 `--------------------'       `----------------------'
  */
 [WINDOWS] = KEYMAP(
@@ -86,10 +87,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_END, LT(FN, KC_ENT), KC_SPC
     ),
 
-/* Keymap 1: Base layer
+/* Keymap 1: macOS Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   |   1  |   2  |   3  |   4  |   5  | LTKy |           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -=    |
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  | LTKy |           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -=   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |LMouse|           |  [{  |   Y  |   U  |   I  |   O  |   P  |   `@   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -97,14 +98,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LFn  |           |  ]}  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt | CTRL | Left | Right| LWin |                                       |  ←   |   ↓  |   ↑  |  →   | Sft/\  |
+ *   | LAlt |LEDOFF| LWIN | LMAC | LCtrl|                                       |  ←   |   ↓  |   ↑  |  →   | Sft/\ |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        | kana | cut  |       | CAPS | Kana   |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | copy |       | Home |        |      |
  *                                 |Backsp|Delete|------|       |------| Enter  |Space |
- *                                 |ace   |      | paste|       | End  |        |      |
+ *                                 |ace   |      | paste|       | End  | LFn   |      |
  *                                 `--------------------'       `----------------------'
  */
 [MACOS] = KEYMAP(
@@ -139,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | RESET|      |      |      |      |                                       |      |      |      |      |      |
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -312,9 +313,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     // MACRODOWN only works in this function
     switch(id) {
         case 0:
-            // if (record->event.pressed) {
-            //     SEND_STRING(s.sysname);
-            // }
             break;
     }
     return MACRO_NONE;
@@ -342,23 +340,29 @@ void matrix_scan_user(void) {
             ergodox_led_all_set(MY_LED_BRIGHTNESS_LO);
             ergodox_right_led_2_on();
             break;
+
         case MACOS:
             ergodox_led_all_set(MY_LED_BRIGHTNESS_LO);
             ergodox_right_led_3_on();
             break;
+
         case FN:
             ergodox_led_all_set(MY_LED_BRIGHTNESS_HI);
             ergodox_right_led_2_on();
             break;
+
         case TENKEY:
             ergodox_led_all_set(MY_LED_BRIGHTNESS_HI);
             ergodox_right_led_3_on();
             break;
+
         case MOUSE:
             ergodox_led_all_set(MY_LED_BRIGHTNESS_HI);
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
             break;
+
+        case LEDOFF:
         default:
             break;
     }
