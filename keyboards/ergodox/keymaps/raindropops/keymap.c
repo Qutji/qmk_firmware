@@ -14,35 +14,35 @@ enum {
 };
 
 // LED Brightness
-#define MY_LED_BRIGHTNESS_LO 1
-#define MY_LED_BRIGHTNESS_HI 10
+#define MY_LED_BRIGHTNESS_LO 15
+#define MY_LED_BRIGHTNESS_HI 50
 
 // Aliases
-#define JA_CLON KC_QUOT  // : and +
-#define JA_AT   KC_LBRC  // @ and `
-#define JA_HAT  KC_EQL   // ^ and ~
-#define JA_ENUN KC_RO    // \ and _ (EN mark and UNder score)
-#define JA_ENVL KC_JYEN  // \ and | (EN mark and Vertical Line)
-#define JA_LBRC KC_RBRC  // [ and {
-#define JA_RBRC KC_BSLS  // ] and }
-#define CAPSLOCK LSFT(KC_CAPS)  //CapsLock
+#define JA_CLON KC_QUOT         // : and +
+#define JA_AT   KC_LBRC         // @ and `
+#define JA_HAT  KC_EQL          // ^ and ~
+#define JA_ENUN KC_RO           // \ and _ (EN mark and UNder score)
+#define JA_ENVL KC_JYEN         // \ and | (EN mark and Vertical Line)
+#define JA_LBRC KC_RBRC         // [ and {
+#define JA_RBRC KC_BSLS         // ] and }
+#define CAPSLOCK LSFT(KC_CAPS)  // CapsLock
 
-#define TGL_WIN TG(WINDOWS)    // Toggle Layer
-#define TGL_MAC TG(MACOS)      // Toggle Layer
-#define TGL_LED TG(LEDOFF)     // Toggle Layer
+#define TGL_WIN TG(WINDOWS)     // Toggle Layer
+#define TGL_MAC TG(MACOS)       // Toggle Layer
+#define TGL_LED TG(LEDOFF)      // Toggle Layer
 
-
-// Aliases for Windows
+// for Windows
 #define WIN_CUT LCTL(KC_X)     // Cut
 #define WIN_COPY LCTL(KC_C)    // Copy
 #define WIN_PASTE LCTL(KC_V)   // Paste
 #define WIN_KANA KC_GRV
 
-// Aliases for macOS
+// for macOS
 #define MAC_CUT LGUI(KC_X)     // Cut
 #define MAC_COPY LGUI(KC_C)    // Copy
 #define MAC_PASTE LGUI(KC_V)   // Paste
 #define MAC_KANA  LCTL(KC_SPC)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Windows layer(Base Layer)
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LFn  |           |  ]}  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt |LEDOFF| LWIN | LMAC | LGui |                                       |  ←   |   ↓  |   ↑  |  →   | Sft/\ |
+ *   | LAlt |LEDOFF| LWIN | LMAC | LGui |                                       | Sft/ |      |      |      | Sft/\ |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        | Kana | cut  |       | CAPS | Kana   |
@@ -81,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         JA_LBRC,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
                     KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
         JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
-                            KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  SFT_T(KC_JYEN),
+                            SFT_T(KC_SLSH), KC_NO, KC_NO, KC_NO,  SFT_T(KC_JYEN),
         CAPSLOCK,       WIN_KANA,
         KC_HOME,
         KC_END, LT(FN, KC_ENT), KC_SPC
@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------| LFn  |           |  ]}  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt |LEDOFF| LWIN | LMAC | LCtrl|                                       |  ←   |   ↓  |   ↑  |  →   | Sft/\ |
+ *   | LAlt |LEDOFF| LWIN | LMAC | LCtrl|                                       | Sft/ |      |      |      | Sft/\ |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        | kana | cut  |       | CAPS | Kana   |
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         JA_LBRC,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
                     KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
         JA_RBRC,      KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RO,
-                            KC_LEFT, KC_DOWN, KC_UP, KC_RGHT,  SFT_T(KC_JYEN),
+                            SFT_T(KC_SLSH), KC_NO, KC_NO, KC_NO,  SFT_T(KC_JYEN),
         CAPSLOCK,       MAC_KANA,
         KC_HOME,
         KC_END, LT(FN, KC_ENT), KC_SPC
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
  */
-// Fnctions
+// Functions
 [FN] = KEYMAP(
        // left hand
        KC_TRNS,       KC_F1,      KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,
@@ -258,8 +258,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_PGDN, KC_BTN1, KC_BTN2
     ),
 
-
-
 /* Keymap: LED off Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -335,7 +333,7 @@ void matrix_scan_user(void) {
     ergodox_right_led_3_off();
 
     switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
+        // TODO: Make this relevant to the ErgoDox EZ.
         case WINDOWS:
             ergodox_led_all_set(MY_LED_BRIGHTNESS_LO);
             ergodox_right_led_2_on();
@@ -346,6 +344,12 @@ void matrix_scan_user(void) {
             ergodox_right_led_3_on();
             break;
 
+        case LEDOFF:
+        default:
+            break;
+    }
+
+    switch (layer) {
         case FN:
             ergodox_led_all_set(MY_LED_BRIGHTNESS_HI);
             ergodox_right_led_2_on();
@@ -362,9 +366,8 @@ void matrix_scan_user(void) {
             ergodox_right_led_3_on();
             break;
 
-        case LEDOFF:
         default:
-            break;
+          break;
     }
 
     // caps lock
