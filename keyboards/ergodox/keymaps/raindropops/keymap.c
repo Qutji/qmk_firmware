@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Windows layer(Base Layer)
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   |   1  |   2  |   3  |   4  |   5  |      |           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -=   |
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  | Pause|           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -=   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  \|  |           |  [{  |   Y  |   U  |   I  |   O  |   P  |   `@   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [WINDOWS] = KEYMAP(
         // left hand
-        KC_ESC,     KC_1,    KC_2,    KC_3,     KC_4,   KC_5,   KC_NO,
+        KC_ESC,     KC_1,    KC_2,    KC_3,     KC_4,   KC_5, KC_PAUS,
         KC_TAB,     KC_Q,    KC_W,    KC_E,     KC_R,   KC_T, JA_ENVL,
         KC_LCTL,    KC_A,    KC_S,    KC_D,     KC_F,   KC_G,
         KC_LSFT,    KC_Z,    KC_X,    KC_C,     KC_V,   KC_B,  JA_HAT,
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 1: macOS Layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |  Esc   |   1  |   2  |   3  |   4  |   5  |      |           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -=   |
+ * |  Esc   |   1  |   2  |   3  |   4  |   5  | Pause|           |  ^~  |   6  |   7  |   8  |   9  |   0  |   -=   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  ^~  |           |  [{  |   Y  |   U  |   I  |   O  |   P  |   `@   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [MACOS] = KEYMAP(
         // left hand
-        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_NO,
+        KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_PAUS,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   JA_ENVL,
         KC_LGUI,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   JA_HAT,
