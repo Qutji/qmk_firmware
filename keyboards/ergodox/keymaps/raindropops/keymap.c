@@ -33,14 +33,15 @@ enum {
 
 // for Windows
 #define WIN_CUT LCTL(KC_X)     // Cut
-#define WIN_CPY LCTL(KC_C)    // Copy
-#define WIN_PST LCTL(KC_V)   // Paste
+#define WIN_CPY LCTL(KC_C)     // Copy
+#define WIN_PST LCTL(KC_V)     // Paste
 #define WIN_KANA KC_GRV
+#define WIN_UNDO LCTL(KC_Z)    // UNDO
 
 // for macOS
 #define MAC_CUT LGUI(KC_X)     // Cut
-#define MAC_CPY LGUI(KC_C)    // Copy
-#define MAC_PST LGUI(KC_V)   // Paste
+#define MAC_CPY LGUI(KC_C)     // Copy
+#define MAC_PST LGUI(KC_V)     // Paste
 #define MAC_KANA  LCTL(KC_SPC)
 
 
@@ -58,13 +59,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | LAlt |LEDOFF| LWIN | LMAC | LGui |                                       | Sft/ |      |      |      | Sft/\ |
  *   `----------------------------------'                                       `-----------------------------------'
- *                                        ,-------------.       ,---------------.
- *                                        | Kana | cut  |       | CAPS | Kana   |
- *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      | copy |       | Home |        |      |
- *                                 |Backsp|Delete|------|       |------| Enter  |Space |
- *                                 |ace   |      | paste|       | End  | LFn    |      |
- *                                 `--------------------'       `----------------------'
+ *                                        ,-------------.       ,--------------.
+ *                                        | undo | cut  |       | CAPS | Kana  |
+ *                                 ,------|------|------|       |------+-------+------.
+ *                                 |      |      | copy |       | Home |       |      |
+ *                                 |Space |Delete|------|       |------| Back  | Enter|
+ *                                 |      |      | paste|       | End  | space | LFn  |
+ *                                 `--------------------'       `---------------------'
  */
 [WINDOWS] = KEYMAP(
         // left hand
@@ -73,18 +74,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL,    KC_A,    KC_S,    KC_D,     KC_F,   KC_G,
         KC_LSFT,    KC_Z,    KC_X,    KC_C,     KC_V,   KC_B,  JA_HAT,
         KC_LALT, TGL_LED, TGL_WIN, TGL_MAC,  KC_LGUI,
-                                            WIN_KANA,         WIN_CUT,
+                                            WIN_UNDO,         WIN_CUT,
                                                               WIN_CPY,
-                                             KC_BSPC,KC_DELT, WIN_PST,
+                                              KC_SPC,KC_DELT, WIN_PST,
         // right hand
-        KC_PSCR,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,      KC_MINS,
+        KC_PSCR,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,      KC_MINS,
         JA_LBRC,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,      KC_LBRC,
                    KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,   KC_QUOT,
         JA_RBRC,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,   KC_RO,
                            SFT_T(KC_SLSH), KC_NO, KC_NO, KC_NO,  SFT_T(KC_JYEN),
         KC_CAPS,   WIN_KANA,
         KC_HOME,
-        KC_END, LT(FN, KC_ENT), KC_SPC
+        KC_END, KC_BSPC, LT(FN, KC_ENT)
     ),
 
 /* Keymap 1: macOS Layer
@@ -105,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | copy |       | Home |        |      |
  *                                 |Backsp|Delete|------|       |------| Enter  |Space |
- *                                 |ace   |      | paste|       | End  | LFn   |      |
+ *                                 |ace   |      | paste|       | End  | LFn    |      |
  *                                 `--------------------'       `----------------------'
  */
 [MACOS] = KEYMAP(
