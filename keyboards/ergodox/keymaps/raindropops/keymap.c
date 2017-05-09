@@ -5,7 +5,7 @@
 
 // Layer
 enum {
-  MACOS,       // for macOS(Base layer)
+  MACOS = 0,       // for macOS(Base layer)
   WINDOWS,     // for Windows
   FN,          // functions
   TENKEY,      // ten key
@@ -39,11 +39,10 @@ enum {
 #define WIN_UNDO LCTL(KC_Z)    // UNDO
 
 // for macOS
-#define MAC_CUT LGUI(KC_X)     // Cut
-#define MAC_CPY LGUI(KC_C)     // Copy
-#define MAC_PST LGUI(KC_V)     // Paste
-#define MAC_KANA  LCTL(KC_SPC)
-
+#define MAC_CUT  LGUI(KC_X)     // Cut
+#define MAC_CPY  LGUI(KC_C)     // Copy
+#define MAC_PST  LGUI(KC_V)     // Paste
+#define MAC_KANA LCTL(KC_SPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: macOS Layer(Base layer)
