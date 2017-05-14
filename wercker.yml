@@ -27,5 +27,5 @@ deploy:
     - slack-notifier:
         url: $SLACK_URL
         channel: experiment
-        username: kiteretsu
+        username: incoming-webhook
         branch: master
