@@ -27,8 +27,8 @@ enum {
 #define JA_RBRC KC_BSLS         // ] and }
 #define CAPSLOCK LSFT(KC_CAPS)  // CapsLock
 
-#define TGL_WIN TG(WINDOWS)     // Toggle Layer
-#define TGL_MAC TG(MACOS)       // Toggle Layer
+#define TGL_WIN KC_NO     // Toggle Layer(disable)
+#define TGL_MAC KC_NO       // Toggle Layer(disable)
 #define TGL_LED TG(LEDOFF)      // Toggle Layer
 
 // for Windows
