@@ -52,11 +52,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  \|  |           |  [{  |   Y  |   U  |   I  |   O  |   P  |   `@   |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |Command |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;+  |   :*   |
+ * | LCtrl  |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |  ;+  |   :*   |
  * |--------+------+------+------+------+------|  ^~  |           |  ]}  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /  |   \_    |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LAlt |LEDOFF| LWIN | LMAC | LCtrl|                                       | Sft/ |      |      |      | Sft/\ |
+ *   | LAlt |LEDOFF| LWIN | LMAC | Cmd  |                                       | Sft/ |      |      |      | Sft/\ |
  *   `----------------------------------'                                       `-----------------------------------'
  *                                        ,-------------.       ,---------------.
  *                                        | kana | cut  |       | CAPS | Kana   |
@@ -70,9 +70,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         // left hand
         KC_ESC,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_PAUS,
         KC_TAB,         KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   JA_ENVL,
-        KC_LGUI,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
+        KC_LCTL,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   JA_HAT,
-        KC_LALT,     TGL_LED,      TGL_WIN,TGL_MAC,   KC_LCTL,
+        KC_LALT,     TGL_LED,      TGL_WIN,TGL_MAC,   KC_LGUI,
                                                MAC_KANA,          MAC_CUT,
                                                                   MAC_CPY,
                                                KC_BSPC,KC_DELT,   MAC_PST,
