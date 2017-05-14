@@ -24,8 +24,9 @@ deploy:
         code: |
           curl -X POST -u$BINTRAY_USERNAME:$BINTRAY_APIKEY https://api.bintray.com/content/$BINTRAY_USERNAME/generic/ergodox.hex/$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT/publish
   after-steps:
-    - slack-notifier:
+    - business-of-fashion/step-slack:
         url: $SLACK_URL
         channel: "#experiment"
         username: wercker
         branch: master
+        passed_message: "[Ergodox EZ keymap]delpoy for qmk_firmware by raindrop has passed. <'https://bintray.com/riffrain/generic/ergodox.hex/_latestVersion'|Download here>."
