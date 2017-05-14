@@ -22,10 +22,11 @@ deploy:
     - script:
         name: publish uploaded hex file.
         code: |
-          curl -X POST -u$BINTRAY_USERNAME:$BINTRAY_APIKEY https://api.bintray.com/content/$BINTRAY_USERNAME/generic/ergodox.hex/$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT/publish
+          curz -X POST -u$BINTRAY_USERNAME:$BINTRAY_APIKEY https://api.bintray.com/content/$BINTRAY_USERNAME/generic/ergodox.hex/$WERCKER_GIT_BRANCH-$WERCKER_GIT_COMMIT/publish
+       - sherzberg/slack-notify:
+            subdomain: tanakahouse
+            token: $SLACK_TOKEN
+            channel: “#experiment”
+            username: wercker
+            icon_url: https://avatars3.githubusercontent.com/u/1695193?s=140
 
-    after-steps:
-        - wantedly/pretty-slack-notify:
-            webhook_url: $SLACK_WEBHOOK_URL
-            channel: experiment
-            username: kiteretsu
