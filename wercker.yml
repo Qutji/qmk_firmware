@@ -26,6 +26,6 @@ deploy:
   aFter-steps:
     - slack-notifier:
         url: $SLACK_URL
-        channel: experiment
-        username: incoming-webhook
+        channel: "#experiment"
+        username: wercker
         branch: master
