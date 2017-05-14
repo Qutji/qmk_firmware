@@ -29,4 +29,4 @@ deploy:
         channel: "#experiment"
         username: wercker
         branch: master
-        passed_msg: "<$ACTION_URL|$ACTION> for qmk_firmware by raindrop has passed on branch master. <https://bintray.com/riffrain/generic/ergodox.hex/_latestVersion|Download .hex file>."
+        passed_msg: "deploy for qmk_firmware by raindrop has passed on branch master. <https://bintray.com/riffrain/generic/ergodox.hex/_latestVersion|Download .hex file>."
